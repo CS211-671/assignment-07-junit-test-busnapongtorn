@@ -1,11 +1,33 @@
 package ku.cs.models;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
+
+    @Test
+    void testIsUsername(){
+        User u = new User("username", "password");
+        assertTrue(u.isUsername("username"));
+    }
+
+    @Test
+    void testSetPassword(){
+        User u = new User("username", "password");
+        String password = u.getPassword();
+        u.setPassword("newpassword");
+        assertNotEquals(password, u.getPassword());
+    }
+
+    @Test
+    void testValidatePassword(){
+        User u = new User("username", "password");
+        boolean valid = u.validatePassword("password");
+        assertTrue(valid);
+    }
 
     @Test
     @DisplayName("Password should not store in plain text")
